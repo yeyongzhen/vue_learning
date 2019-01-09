@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue中的样式绑定</title>
+	<script src="../vue/vue.js"></script>
+	<style>
+		.active {
+			font-size: 28px;
+			font-weight: bold;
+			color: red;
+			margin-bottom: 30px;
+		}
+		.active-array {
+			font-size: 28px;
+			font-weight: bold;
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div @click="classObjectClick" :class="{ active : isActive, 'text-danger': hasError }">
+			Html Class Object Syntax
+		</div>
+
+		<div @click="classArrayClick" :class="classObject">
+			Html Class Object Syntax
+		</div>
+
+		<div @click="divClickByArray" :class="[ activeArray ]">
+			Html Class Array Syntax
+		</div>
+
+		<br>
+
+		<div :style="styleObject" @click="styleObjectClick">
+			Style Object Syntax
+		</div>
+
+		<div :style="[styleArray, {fontSize:'30px'}]" @click="styleArrayClick">
+			Style Array Syntax
+		</div>
+	</div>
+	
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				isActive: false,
+				hasError: false,
+				activeArray: "",
+				styleObject: {
+					color: "black"
+				},
+				styleArray: {
+					color: "green"
+				}
+			},
+			methods: {
+				classObjectClick: function () {
+					this.isActive = !this.isActive;
+				},
+				classArrayClick: function () {
+					this.activeArray = this.activeArray === "active-array" ? "" : "active-array";
+				},
+				styleObjectClick: function () {
+					this.styleObject.color = this.styleObject.color === "black" ? "red" : "black";
+				},
+				styleArrayClick: function () {
+					this.styleArray.color = this.styleArray.color === "green" ? "yellow" : "green";
+				}
+			}
+		});
+	</script>
+</body>
+</html>
