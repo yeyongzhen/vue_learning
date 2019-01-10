@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue中的条件渲染</title>
+</head>
+<body>
+	<div id="app">
+		<!-- v-if v-else-if v-else -->
+		<div v-if="type === 'A'"><h1>This is command v-if</h1></div>
+		<div v-else-if="type === 'B'"><h1>This is command v-else-if</h1></div>
+		<div v-else><h1>This is command v-else</h1></div>
+
+		<!-- v-show -->
+		<div v-show="show"><h1>This command v-show</h1></div>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				type: "A",
+				show: false
+			}
+		});
+	</script>
+</body>
+</html>
