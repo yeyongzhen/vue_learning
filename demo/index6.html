@@ -14,6 +14,28 @@
 
 		<!-- v-show -->
 		<div v-show="show"><h1>This command v-show</h1></div>
+
+		<!-- not use key -->
+		<div v-if="loginType === 'username'">
+			<label>Username</label>
+  			<input placeholder="Enter your username">
+		</div>
+		<div v-else>
+			<label>Email</label>
+  			<input placeholder="Enter your email address">
+		</div>
+
+		<br>
+
+		<!-- use key -->
+		<div v-if="loginType === 'username'">
+			<label>Username with key</label>
+  			<input placeholder="Enter your username" key="username-input">
+		</div>
+		<div v-else>
+			<label>Email with key</label>
+  			<input placeholder="Enter your email address" key="email-input">
+		</div>
 	</div>
 
 	<script src="../vue/vue.js"></script>
@@ -22,7 +44,8 @@
 			el: "#app",
 			data: {
 				type: "A",
-				show: false
+				show: false,
+				loginType: 'username'
 			}
 		});
 	</script>
