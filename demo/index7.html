@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue中的列表渲染</title>
+</head>
+<body>
+	<div id="app">
+		<!-- v-for Array -->
+		<h1>value</h1>
+		<ul>
+			<li v-for="user in userList">
+				{{user.name + ' - ' + user.gender + ' - ' + user.age}}
+			</li>
+		</ul>
+		<hr>
+
+		<h1>value, index</h1>
+		<ul>
+			<li v-for="(user, index) in userList">
+				{{'userList[' + index + '] = ' + user.name + ' - ' + user.gender + ' - ' + user.age}}
+			</li>
+		</ul>
+		<hr>
+
+		<!-- v-for Object -->
+		<h1>value</h1>
+		<div v-for="value in object">
+			{{value}}
+		</div>
+		<hr>
+
+		<h1>value, key</h1>
+		<div v-for="(value, key) in object">
+			{{ 'Key:' + key + '; Value:' + value }}
+		</div>
+		<hr>
+
+		<h1>value, key, index</h1>
+		<div v-for="(value, key, index) in object">
+			{{value}} --- {{key}} --- {{index}}
+		</div>
+		<hr>
+		
+		<template v-for="(item, index) of list">
+			<div>
+				{{ item.name }} ---- {{ index }}
+			</div>
+			<span>
+				{{ item.text }}
+			</span>
+		</template>
+
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				userList: [
+					{ name: "michael", gender: "male", age: "24" },
+					{ name: "jermy", gender: "male", age: "30" },
+					{ name: "nick", gender: "male", age: "11" },
+				],
+				object: {
+			    firstName: 'John',
+			    lastName: 'Doe',
+			    age: 30
+			  },
+			  list: [
+			  	{ id:1, name: "jack ma", text: 'hello'},
+			  	{ id:2, name: "michael ye", text: 'alibaba'}
+			  ]
+			}
+		});
+	</script>
+</body>
+</html>
