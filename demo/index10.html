@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue Basic | Event Handling</title>
+</head>
+<body>
+	<div id="app">
+		<h3>Listening to Event</h3>
+		<button v-on:click="count += 1">Click</button>
+		<p>The button above has been clicked {{ count }} times.</p>
+		<hr>
+		<br>
+
+		<h3>Method Event Handlers</h3>
+		<button v-on:click="showMsg">{{ btnValue }}</button>
+		<p v-show="hasClicked">Method Event "greet" has been clicked.</p>
+		<hr>
+		<br>
+
+		<h3>Methods in Inline Handlers</h3>
+		<button v-on:click="say('Hello')">Say Hello</button>
+		<p>{{ message }}</p>
+		<hr>
+		<br>
+		
+		<h3>Access The Original DOM Event In an Inline Handler</h3>
+		<button v-on:click="warn('access the original dom!', $event)">Original DOM</button>
+		<p>{{ warnMsg }}</p>
+		<hr>
+		<br>
+
+		<h2>Methods Modifiers</h2>
+		<hr>
+
+		<h3>.stop</h3>
+		<div v-on:click="doThis">
+			<button v-on:click.stop="doThat">doThat</button>
+			<p>{{ thisMsg }}</p>
+			<p>{{ thatMsg }}</p>
+		</div>
+		<hr>
+		<br>
+
+		<h3>.once</h3>
+		<button v-on:click.once="doOnce">Click</button>
+		<p>{{ stopMsg }}</p>
+		<hr>
+		<br>
+	
+		<h3>Key Modifiers</h3>
+		<input v-on:keyup.enter="hh">Click</input>
+		<p>{{ keyMsg }}</p>
+
+		
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				count: 0,
+				hasClicked: false,
+				btnValue: 'show',
+				message: '',
+				warnMsg: '',
+				thisMsg: '',
+				thatMsg: '',
+				stopMsg: '',
+				keyMsg: ''
+
+			},
+			methods: {
+				showMsg: function () {
+					this.btnValue = this.btnValue === 'show' ? 'hide' : 'show';
+					this.hasClicked = !this.hasClicked;
+				},
+				say: function (message) {
+					this.message = message;
+				},
+				warn: function (warnMsg, event) {
+					if (event) {
+						event.preventDefault();
+					}
+    				this.warnMsg = warnMsg;
+				},
+				doThis: function () {
+					console.log('Log::do this');
+					this.thisMsg = 'do this';
+				},
+				doThat: function () {
+					console.log('Log::do that');
+					this.thatMsg = 'do that';
+				},
+				doOnce: function () {
+					console.log('Log::click one time.');
+					this.stopMsg = 'The click event will be triggered at most once.';
+				},
+				hh: function () {
+					console.log('You just click Enter right now.');
+					this.keyMsg = 'You click Enter.';
+				}
+			}
+		});
+	</script>
+</body>
+</html>
