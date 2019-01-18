@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue的列表渲染-案例</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div id="app">
+		<h4>有时，我们想要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性。</h4>
+
+		<ul>
+			<li v-for="n in evenNumbers">{{ n }}</li>
+		</ul>
+
+		<hr><br>
+
+		<h4>在计算属性不适用的情况下 (例如，在嵌套 v-for 循环中) 你可以使用一个 method 方法：</h4>
+
+		<ul>
+			<li v-for="m in even(numbers)">{{ m }}</li>
+		</ul>
+
+		<hr><br>
+
+		<h4>一段取值范围的 v-for</h4>
+		<ul>
+			<li v-for="x in 4">{{ x }}</li>
+		</ul>
+
+		<h4>v-for on a template</h4>
+		<ul>
+			<template v-for="item in numbers">
+				<li>{{ item }}</li>
+			</template>
+		</ul>
+
+		<h4>v-for with v-if</h4>
+		<h5>
+			当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。
+		</h5>
+
+		<ul v-for="item in numbers" v-if="item > 4">
+			<li>{{ item }}</li>
+		</ul>
+		<hr>
+
+		<h5>
+			而如果你的目的是有条件地跳过循环的执行，那么可以将 v-if 置于外层元素 (或 template)上。如：
+		</h5>
+		<ul v-if="numbers.length">
+			<li v-for="item in numbers">
+				{{ item }}
+			</li>
+		</ul>
+		<p v-else>No numbers left!</p>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				numbers: [1, 2, 3, 4, 5]
+			},
+			computed: {
+				evenNumbers: function() {
+					// return this.numbers.filter(function (number) {
+					// 	return number % 2 === 0;
+					// });
+
+					// ES6 箭头函数写法
+					return this.numbers.filter(number => number % 2 === 0);
+				}
+			},
+			methods: {
+				even: function (numbers) {
+					return this.numbers.filter(number => number % 2 === 0);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

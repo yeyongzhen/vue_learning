@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue List Rendering - v-for with a Component</title>
+</head>
+<body>
+	<h1>TodoList For My Vue Learning Plan</h1>
+	<hr>
+
+	<div id="app">
+		<form @submit.prevent="addNewTodo">
+			<label for="new-todo">Add a todo</label>
+
+		    <input
+		      v-model="newTodoText"
+		      id="new-todo"
+		      placeholder="E.g. Feed the cat"
+		    >
+
+		    <button>Add</button>
+		</form>
+		 
+		<ul>
+		    <todo-item
+		      v-for="(todo, index) in todoList"
+		      :key="todo.id"
+		      :title="todo.title"
+		      @remove="remove(index)"
+		    ></todo-item>
+		</ul>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var todoItem = Vue.component('todo-item', {
+		    template: '\
+		    	<li>\
+		      		{{ title }}\
+		      		<button v-on:click="$emit(\'remove\')">Remove</button>\
+		    	</li>\
+		    ',
+		    props: ['title']
+		})
+
+		var vm = new Vue({
+			el: "#app",
+			component: [
+				'todo-item'
+			],
+			data: {
+				newTodoText: '',
+				todoList: [
+					{
+						id: 1,
+						title: 'Vue - Basic Knowledge'
+					},
+					{
+						id: 2,
+						title: 'Vue - Component Knowledge'
+					},
+					{
+						id: 3,
+						title: 'Vue - Vuex Knowledge'
+					},
+					{
+						id: 4,
+						title: 'Vue - vue-router Knowledge'
+					},
+				],
+				nextTodoId: 5
+			},
+			methods: {
+				addNewTodo: function () {
+					this.todoList.push({
+						id: this.nextTodoId++,
+        				title: this.newTodoText
+					});
+					this.newTodoText = '';
+				},
+				remove: function (index) {
+					this.todoList.splice(index, 1);
+				}
+			}
+		});
+	</script>
+</body>
+</html>
