@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue | Form Input Bindings</title>
+</head>
+<body>
+	<div id="app">
+		<h3># Text</h3>
+		<input v-model="textMsg" placeholder="edit me">
+		<p>Message is: {{ textMsg }}</p>
+		<hr>
+		<br>
+
+		<h3># Multiline Text</h3>
+		<textarea v-model="multText" placeholder="add multiple lines"></textarea>
+		<p>Message is: {{ multText }}</p>
+		<hr>
+		<br>
+
+		<h3># Checkbox</h3>
+		<input type="checkbox" id="checkbox" v-model="checked">
+		<p>{{ checked }}</p>
+		<hr>
+		<br>
+
+		<h3># Multiple Checkboxes</h3>
+		<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+		<label for="jack">Jack</label>
+		<input type="checkbox" id="ma" value="ma" v-model="checkedNames">
+		<label for="ma">ma</label>
+		<p>Checked Names: {{ checkedNames }}</p>
+		<hr>
+		<br>
+		
+		<h3># Radio</h3>
+		<input type="radio" id="one" value="One" v-model="picked">
+		<label for="one">One</label>
+		<input type="radio" id="two" value="Two" v-model="picked">
+		<label for="two">Two</label>
+		<p>Picked: {{ picked }}</p>
+		<hr>
+		<br>
+		
+		<h3># Select</h3>
+		<select v-model="selected">
+			<option disabled value="">Please select one</option>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<p>Selected: {{ selected }}</p>
+		<hr>
+		<br>
+
+		<h3># Multiple Select</h3>
+		<select v-model="mulSelected" multiple>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<p>Selected: {{ mulSelected }}</p>
+		<hr>
+		<br>
+		
+		<h3># Dynamic Options Render with v-for</h3>
+		<select v-model="dynamicSelected">
+			<option v-for="option in options" :value="option.value">{{ option.text }}</option>
+		</select>
+		<p>Dynamic Options Selected: {{ dynamicSelected }}</p>
+		<hr>
+		<br>
+
+		<h3># Modifiers</h3>
+		<input v-model.lazy.trim.number="modifierMsg">	
+		<p>Modifier .lazy: {{ modifierMsg }} - {{ typeof modifierMsg }}</p>
+		<hr>
+		<br>
+
+
+
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				textMsg: '',
+				multText: '',
+				checked: false,
+				checkedNames: [],
+				picked: '',
+				selected: '',
+				mulSelected: [],
+				dynamicSelected: '',
+				options: [
+			      { text: 'One', value: 'A' },
+			      { text: 'Two', value: 'B' },
+			      { text: 'Three', value: 'C' }
+			    ],
+			    modifierMsg: 1,
+			}
+		})
+	</script>
+</body>
+</html>
