@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue | Props</title>
+</head>
+<body>
+	<div id="app">
+		<!-- <blog-post 
+			v-for="post in posts" 
+			:key="post.id" 
+			:title="post.title"
+		></blog-post> -->
+
+		<!-- Single root element -->
+		<!-- <div :style="{ fontSize: postFontSize + 'em' }">
+			<blog-post2
+				v-for="post in posts"
+				:key="post.id"
+				:post="post"
+				v-on:enlarge-text="postFontSize += $event"
+			></blog-post2>
+		</div> -->
+
+		<div :style="{ fontSize: postFontSize + 'em' }">
+			<blog-post2
+				v-for="post in posts"
+				:key="post.id"
+				:post="post"
+				v-on:enlarge-text="big"
+			></blog-post2>
+		</div>
+
+
+		<!-- use v-model on components -->
+		<custom-input
+			v-bind:value="searchText"
+			v-on:input="searchText = $event"
+		></custom-input>
+		<p>Search Text is: {{ searchText }}</p>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		// Vue.component('blog-post', {a
+		// 	props: ['title'],
+		// 	template: '<h3>{{ title }}</h3>'
+		// })
+
+		Vue.component('blog-post2', {
+		  props: ['post'],
+		  template: `
+		    <div class="blog-post">
+		      <h3>{{ post.title }}</h3>
+		      <button @click="$emit('enlarge-text', 0.1)">
+				Enlarge Text Now
+		      </button>
+		      <div v-html="post.content"></div>
+		    </div>
+		  `
+		});
+
+		Vue.component('custom-input', {
+			props: ['value'],
+			template: `
+				<input
+					v-bind:value="value"
+					v-on:input="$emit('input', $event.target.value)"
+				>
+			`
+		});
+
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				posts: [
+					{ id: 1, title: "Vue Basic"},
+					{ id: 2, title: "Vue Components"},
+					{ id: 3, title: "Vue Tools"}
+				],
+				postFontSize: 1,
+				searchText: ''
+			},
+			methods: {
+				big: function (argument) {
+					this.postFontSize += argument;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

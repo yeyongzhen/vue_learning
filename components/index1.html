@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue Components Basic</title>
+</head>
+<body>
+	<div id="app">
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		// Global Registed Component 
+		Vue.component('button-counter', {
+			data: function() {
+				return {
+					count: 0
+				}
+			},
+			template: '<button @click="count++">You clicked me {{ count }} ties.</button>'
+		})
+
+		// root Vue instance
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				count: 0
+			}
+		})
+	</script>
+</body>
+</html>
