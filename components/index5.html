@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue Disabling Attribute Inheritance</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div id="app">
+		<base-input
+		  v-model="username"
+		  :label="label"
+		  class="username-input"
+		  placeholder="Enter your username"
+		></base-input>
+		<p>{{ username }}</p>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		Vue.component('base-input', {
+			// inheritance: false,
+			props: ['label', 'value'],
+			template: `
+				<label>
+					{{ label }}
+					<input
+						v-bind="$attrs"
+						v-bind:value="value"
+						v-on:input="$emit('input', $event.target.value)"
+					>
+				</label>
+			`
+		})
+
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				label: 'Username',
+				username: ''
+			}
+		})
+	</script>
+</body>
+</html>
