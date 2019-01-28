@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue | Binding Native Events to Components</title>
+</head>
+<body>
+	<div id="app">
+		<label>
+			testValue
+			<base-input2
+			v-model="testValue"
+			v-on:focus.native="onFocus"
+		></base-input2>
+		</label>
+
+		<br>
+		
+
+		<base-input
+			v-model="username"
+			:label="label"
+			class="username-input"
+			placeholder="Edit your username"
+		></base-input>
+		<p>{{ username }}</p>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+
+		Vue.component('base-input2', {
+			inheritAttrs: false,
+			props: [ 'label', 'value' ],
+			template: `
+				<input
+					v-bind:value="value"
+					v-on:input="$emit('input', $event.target.value)"
+				>
+			`
+		})
+
+		Vue.component('base-input', {
+			inheritAttrs: false,
+			props: [ 'label', 'value' ],
+			computed: {
+				inputListeners: function () {
+					var vm = this;
+
+					return Object.assign({}, 
+						this.$listeners,
+						{
+							input: function (event) {
+								vm.$emit('input', event.target.value);
+							},
+							focus: function (event) {
+								console.log('It is attribtue $listeners');
+							}
+						}
+					)
+				}
+			},
+			template: `
+				<label>
+					{{ label }}
+					<input
+						v-bind="$attrs"
+						v-bind:value="value"
+						v-on="inputListeners"
+					>
+				</label>
+			`
+		})
+
+		new Vue({
+			el: "#app",
+			data: {
+				label: 'username',
+				username: '',
+				testValue: ''
+			},
+			methods: {
+				onFocus: function () {
+					console.log('This is on Focus');
+				}
+			}
+		})
+	</script>
+</body>
+</html>
