@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue | .sync Modifier</title>
+</head>
+<body>
+	<div id="app">
+		<!-- <text-document
+			v-model="doc.title"
+			v-on:update:title="doc.title = $event"
+		></text-document> -->
+
+		<text-document
+			v-model="doc.title"
+			v-bind:title.sync="doc.title"
+		></text-document>
+
+		<p>{{ doc.title }}</p>
+	</div>
+	
+	<script src="../vue/vue.js"></script>
+	<script>
+		Vue.component('text-document', {
+			
+			props: [ 'title' ],
+			template: `
+				<input
+					v-bind:value="title"
+					placeholder="Edit doc title"
+					v-on:input="modifyTitle($event)"
+				>
+			`,
+			methods: {
+				modifyTitle: function ($event) {
+					this.$emit('update:title', $event.target.value);
+				}
+			}
+		})
+
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				doc: {
+					title: 'Musle'
+				},
+				newTitle: ''
+			}
+		})
+	</script>
+</body>
+</html>
