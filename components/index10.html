@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue slots</title>
+</head>
+<body>
+	<h1>TodoList</h1>
+	<hr>
+
+	<div id="app">
+		
+		<todo-list v-bind:todos="todos"></todo-list>
+		
+
+		<todo-list v-bind:todos="todos">
+			<!-- 将 `slotProps` 定义为插槽作用域的名字 -->
+  			<template slot-scope="slotProps">
+    			<!-- 为待办项自定义一个模板，-->
+    			<!-- 通过 `slotProps` 定制每个待办项。-->
+    			<span v-if="slotProps.todo.isComplete">✓</span>
+				{{ slotProps.todo.text }}
+			</template>
+		</todo-list>	
+
+		
+		<todo-list v-bind:todos="todos">
+		  	<template slot-scope="{ todo }">
+		    	<span v-if="todo.isComplete">✓</span>
+		    	{{ todo.text }}
+		  	</template>
+		</todo-list>
+	</div>
+	
+	<script src='../vue/vue.js'></script>
+	<script>
+		Vue.component('todo-list', {
+			props: ['todos'],
+			template: `
+				<ul>
+				  <li
+				    v-for="todo in todos"
+				    v-bind:key="todo.id"
+				  >
+
+				  	<slot v-bind:todo="todo">
+				    	{{ todo.text }}
+				    </slot>
+				  </li>
+				</ul>
+			`
+		})
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				todos: [
+					{id: 1, text: 'Learn VueJS', isComplete: true},
+					{id: 2, text: 'Optimize Resume', isComplete: false},
+					{id: 3, text: 'Take a rest', isComplete: false}
+				]
+			}
+		});
+	</script>
+</body>
+</html>
