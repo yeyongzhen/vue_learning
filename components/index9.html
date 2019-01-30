@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue .sync demo</title>
+	<style>
+		.high-price {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<book-list
+			v-bind.sync="book"
+		></book-list>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		Vue.component('book-list', {
+			props: ['title', 'author', 'price', 'priceColor'],
+			template: `
+				<div>
+					<p><h2>{{ title }}</h2></p>
+					<p><h3>author: {{ author }}</h3></p>
+					<p>
+						<h4>price: <span :class="priceColor">\${{ price }}</span></h4>
+					</p>
+					<p>
+						<button v-on:click="Rise">Rise the price</button>
+					</p>
+				</div>
+			`,
+			methods: {
+				Rise: function () {
+					this.$emit('update:price', 99);
+				}
+			}
+		})
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				book: {
+					title: 'Vue Learning',
+					author: 'yeyongzhen',
+					price: 88
+				},
+				highPrice: ''
+			}
+		})
+	</script>
+</body>
+</html>
