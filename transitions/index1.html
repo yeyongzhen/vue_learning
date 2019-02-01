@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue | Transitions & Animation</title>
+
+	<style>
+		/*显示时*/
+		.v-enter,
+		.v-leave-to {
+			opacity: 0;
+		}
+		.v-enter-active,
+		.v-leave-active {
+			transition: opacity 3s;
+		}
+
+		/*.fade-enter {
+			opacity: 0;
+		}
+		.fade-enter-active {
+			transition: opacity 3s;
+		}*/
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+		<!-- <transition name="fade"> -->
+		<transition>
+			<div v-if="show">Hello Vue</div>
+		</transition>
+		<button @click="showMsg">切换</button>
+
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				show: true
+			},
+			methods: {
+				showMsg: function () {
+					this.show = !this.show
+				}
+			}
+		})
+	</script>
+</body>
+</html>
