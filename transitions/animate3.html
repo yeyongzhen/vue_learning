@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue 过渡的类名</title>
+	<style>
+		.v-enter, .v-leave-to {
+			opacity: 0;
+		}
+		.v-enter-active, .v-leave-active {
+			transition: opacity 2s;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+		<transition>
+			<p v-if="show">默认类名前缀是 v-</p>
+		</transition>
+		<button @click="handleClick">Toogle</button>
+
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				show: true
+			},
+			methods: {
+				handleClick: function () {
+					this.show = !this.show
+				}
+			}
+		})
+	</script>
+</body>
+</html>

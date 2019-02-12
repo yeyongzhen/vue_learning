@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,14 +36,24 @@
 			animation: bounce-in 1s reverse;
 		}
 	</style> -->
+	<style>
+		.fade-enter .fade-leave-to {
+			opacity: 0;
+		}
+		.fade-enter-active,
+		.fade-leave-active {
+			transition: opacity 3s;
+		}
+	</style>
 </head>
 <body>
 	<div id="app">
 		
 		<transition
+		  type="transitionend"
 			name="fade"
-			enter-active-class="animated swing"
-			leave-active-class="animated shake"
+			enter-active-class="animated tada fade-enter-active"
+			leave-active-class="animated bounceOutRight fade-leave-active"
 		>
 			<div v-if="show">Hello Vue</div>
 		</transition>

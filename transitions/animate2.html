@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue CSS过渡</title>
+	<style>
+		.fade-enter, .fade-leave {
+			opacity: 0;
+		}
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity 2s;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+		<transition name="fade">
+			<p v-if="show">Vue.js</p>
+		</transition>
+
+		<button @click="handleClick">Toogle</button>
+
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				show: true
+			},
+			methods: {
+				handleClick: function () {
+					this.show = !this.show
+				}
+			}
+		})
+	</script>
+</body>
+</html>
