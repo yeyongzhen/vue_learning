@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue 初始渲染的过渡</title>
+	<style>
+		.custom-appear-class {
+			opacity: 0;
+		}
+		.custom-appear-to-class {
+			color: green;
+		}
+		.custom-appear-active-class {
+			transition: opacity 2s;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+		<transition 
+			appear
+			appear-class="custom-appear-class"
+  		appear-to-class="custom-appear-to-class"
+  		appear-active-class="custom-appear-active-class"
+		>
+
+			<p v-if="show">通过 appear 初始渲染的过渡</p>
+		</transition>
+		
+		<button @click="handleClick">Toogle</button>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				show: true
+			},
+			methods: {
+				handleClick: function () {
+					this.show = !this.show
+				}
+			}
+		})
+	</script>
+</body>
+</html>
