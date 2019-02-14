@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue JavaScript钩子</title>
+
+</head>
+<body>
+	<div id="app">
+		
+		<transition
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+
+			@before-leave="beforeLeave"
+			@leave="leave"
+			@after-leave="afterLeave"
+		>
+			<p v-if="show">JavaScript 钩子</p>
+		</transition>
+
+		<button @click="handleClick">Click</button>
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				show: true
+			},
+			methods: {
+				handleClick: function () {
+					this.show = !this.show
+				},
+				beforeEnter: function (el) {
+					el.style.color = 'red'
+				},
+				enter: function (el, done) {
+					setTimeout(() => {
+						el.style.color = 'green'
+					}, 2000)
+
+					setTimeout(() => {
+							done()
+					}, 4000)
+				},
+				afterEnter: function (el) {
+					el.style.color = '#000'
+				},
+
+				// 出场动画
+				beforeLeave: function (el) {
+					el.style.color = 'gray'
+				},
+				leave: function (el, done) {
+					setTimeout(() => {
+						el.style.color = 'yellow'
+					}, 2000)
+
+					setTimeout(() => {
+							done()
+					}, 4000)
+				},
+				afterLeave: function (el) {
+					el.style.color = 'blue'
+				}
+			}
+		})
+	</script>
+</body>
+</html>
