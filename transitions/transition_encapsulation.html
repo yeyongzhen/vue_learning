@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue 动画的封装</title>
+	<style>
+		/*.v-enter, .v-leave-to {
+			opacity: 0;
+		}
+		.v-enter-active, .v-leave-active {
+			transition: opacity 2s;
+		}*/
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+		<fade :show="show">
+			<p>可复用的过渡</p>
+		</fade>
+		<button @click="handleClick">Toogle</button>
+
+	</div>
+
+	<script src="../vue/vue.js"></script>
+	<script>
+		Vue.component('fade', {
+			props: ['show'],
+			template: `
+				<transition @before-enter="handleBeforeEnter"
+				@enter="handleEnter">
+					<slot v-if="show"></slot>
+				</transition>
+			`,
+			methods: {
+				handleBeforeEnter: function (el) {
+					el.style.color = 'red'
+				},
+				handleEnter: function (el, done) {
+					setTimeout(() => {
+						el.style.color = 'green'
+						done()
+					}, 2000)
+				}
+			}
+		})
+
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				show: true
+			},
+			methods: {
+				handleClick: function () {
+					this.show = !this.show
+				}
+			}
+		})
+	</script>
+</body>
+</html>
